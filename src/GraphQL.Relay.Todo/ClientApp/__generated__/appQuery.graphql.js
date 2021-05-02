@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 668b3cdb99f4e71e393d1a1449b7b808
  */
 
 /* eslint-disable */
@@ -8,9 +7,17 @@
 'use strict';
 
 /*::
-import type {ConcreteBatch} from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
+type TodoApp_viewer$ref = any;
+export type appQueryVariables = {||};
 export type appQueryResponse = {|
-  +viewer: ?{| |};
+  +viewer: ?{|
+    +$fragmentRefs: TodoApp_viewer$ref
+  |}
+|};
+export type appQuery = {|
+  variables: appQueryVariables,
+  response: appQueryResponse,
 |};
 */
 
@@ -48,10 +55,10 @@ fragment TodoList_viewer on User {
   todos(first: 2147483647) {
     edges {
       node {
-        __typename
         id
         complete
         ...Todo_todo
+        __typename
       }
       cursor
     }
@@ -79,7 +86,30 @@ fragment Todo_viewer on User {
 }
 */
 
-const batch /*: ConcreteBatch*/ = {
+const node/*: ConcreteRequest*/ = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "kind": "Literal",
+  "name": "first",
+  "value": 2147483647
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "complete",
+  "storageKey": null
+},
+v3 = [
+  (v1/*: any*/)
+];
+return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -87,114 +117,87 @@ const batch /*: ConcreteBatch*/ = {
     "name": "appQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
         "args": null,
         "concreteType": "User",
+        "kind": "LinkedField",
         "name": "viewer",
         "plural": false,
         "selections": [
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "TodoApp_viewer",
-            "args": null
+            "name": "TodoApp_viewer"
           }
         ],
         "storageKey": null
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
-  "id": null,
-  "kind": "Batch",
-  "metadata": {},
-  "name": "appQuery",
-  "query": {
+  "kind": "Request",
+  "operation": {
     "argumentDefinitions": [],
-    "kind": "Root",
+    "kind": "Operation",
     "name": "appQuery",
-    "operation": "query",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
         "args": null,
         "concreteType": "User",
+        "kind": "LinkedField",
         "name": "viewer",
         "plural": false,
         "selections": [
+          (v0/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
             "args": null,
-            "name": "id",
-            "storageKey": null
-          },
-          {
             "kind": "ScalarField",
-            "alias": null,
-            "args": null,
             "name": "totalCount",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
             "name": "completedCount",
             "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "completedTodos",
             "args": [
-              {
-                "kind": "Literal",
-                "name": "first",
-                "value": 2147483647,
-                "type": "Int"
-              },
+              (v1/*: any*/),
               {
                 "kind": "Literal",
                 "name": "status",
-                "value": "completed",
-                "type": "String"
+                "value": "completed"
               }
             ],
             "concreteType": "TodoConnection",
+            "kind": "LinkedField",
             "name": "todos",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
                 "args": null,
                 "concreteType": "TodoEdge",
+                "kind": "LinkedField",
                 "name": "edges",
                 "plural": true,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
                     "args": null,
                     "concreteType": "Todo",
+                    "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "id",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "complete",
-                        "storageKey": null
-                      }
+                      (v0/*: any*/),
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -202,74 +205,55 @@ const batch /*: ConcreteBatch*/ = {
                 "storageKey": null
               }
             ],
-            "storageKey": "todos{\"first\":2147483647,\"status\":\"completed\"}"
+            "storageKey": "todos(first:2147483647,status:\"completed\")"
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "first",
-                "value": 2147483647,
-                "type": "Int"
-              }
-            ],
+            "args": (v3/*: any*/),
             "concreteType": "TodoConnection",
+            "kind": "LinkedField",
             "name": "todos",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
                 "args": null,
                 "concreteType": "TodoEdge",
+                "kind": "LinkedField",
                 "name": "edges",
                 "plural": true,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
                     "args": null,
                     "concreteType": "Todo",
+                    "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
                     "selections": [
+                      (v0/*: any*/),
+                      (v2/*: any*/),
                       {
-                        "kind": "ScalarField",
                         "alias": null,
                         "args": null,
-                        "name": "__typename",
-                        "storageKey": null
-                      },
-                      {
                         "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "id",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
-                        "name": "complete",
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "args": null,
                         "name": "text",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
                     "name": "cursor",
                     "storageKey": null
                   }
@@ -277,24 +261,24 @@ const batch /*: ConcreteBatch*/ = {
                 "storageKey": null
               },
               {
-                "kind": "LinkedField",
                 "alias": null,
                 "args": null,
                 "concreteType": "PageInfo",
+                "kind": "LinkedField",
                 "name": "pageInfo",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "ScalarField",
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
                     "name": "endCursor",
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
                     "name": "hasNextPage",
                     "storageKey": null
                   }
@@ -302,30 +286,33 @@ const batch /*: ConcreteBatch*/ = {
                 "storageKey": null
               }
             ],
-            "storageKey": "todos{\"first\":2147483647}"
+            "storageKey": "todos(first:2147483647)"
           },
           {
-            "kind": "LinkedHandle",
             "alias": null,
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "first",
-                "value": 2147483647,
-                "type": "Int"
-              }
-            ],
+            "args": (v3/*: any*/),
+            "filters": null,
             "handle": "connection",
-            "name": "todos",
             "key": "TodoList_todos",
-            "filters": null
+            "kind": "LinkedHandle",
+            "name": "todos"
           }
         ],
         "storageKey": null
       }
     ]
   },
-  "text": "query appQuery {\n  viewer {\n    ...TodoApp_viewer\n    id\n  }\n}\n\nfragment TodoApp_viewer on User {\n  id\n  totalCount\n  ...TodoListFooter_viewer\n  ...TodoList_viewer\n}\n\nfragment TodoListFooter_viewer on User {\n  id\n  completedCount\n  completedTodos: todos(status: \"completed\", first: 2147483647) {\n    edges {\n      node {\n        id\n        complete\n      }\n    }\n  }\n  totalCount\n}\n\nfragment TodoList_viewer on User {\n  todos(first: 2147483647) {\n    edges {\n      node {\n        __typename\n        id\n        complete\n        ...Todo_todo\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n  totalCount\n  completedCount\n  ...Todo_viewer\n}\n\nfragment Todo_todo on Todo {\n  id\n  complete\n  text\n}\n\nfragment Todo_viewer on User {\n  id\n  totalCount\n  completedCount\n}\n"
+  "params": {
+    "cacheID": "c6ff346e58b54930e6362254bd4a0bdb",
+    "id": null,
+    "metadata": {},
+    "name": "appQuery",
+    "operationKind": "query",
+    "text": "query appQuery {\n  viewer {\n    ...TodoApp_viewer\n    id\n  }\n}\n\nfragment TodoApp_viewer on User {\n  id\n  totalCount\n  ...TodoListFooter_viewer\n  ...TodoList_viewer\n}\n\nfragment TodoListFooter_viewer on User {\n  id\n  completedCount\n  completedTodos: todos(status: \"completed\", first: 2147483647) {\n    edges {\n      node {\n        id\n        complete\n      }\n    }\n  }\n  totalCount\n}\n\nfragment TodoList_viewer on User {\n  todos(first: 2147483647) {\n    edges {\n      node {\n        id\n        complete\n        ...Todo_todo\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n  totalCount\n  completedCount\n  ...Todo_viewer\n}\n\nfragment Todo_todo on Todo {\n  id\n  complete\n  text\n}\n\nfragment Todo_viewer on User {\n  id\n  totalCount\n  completedCount\n}\n"
+  }
 };
+})();
+// prettier-ignore
+(node/*: any*/).hash = '14aafc6977e28bcb7c5b2392f3fdae03';
 
-module.exports = batch;
+module.exports = node;

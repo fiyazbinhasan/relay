@@ -1,27 +1,49 @@
 const path = require('path')
-const RelayCompilerWebpackPlugin = require('@dhau/relay-compiler-webpack-plugin')
-const { plugins, rules } = require('webpack-atoms')
 
 module.exports = {
-  devtool: "cheap-module-source-map",
-  entry: './ClientApp/app.js',
-  output: {
-    path: `${__dirname}/wwwroot/dist`,
-    filename: 'bundle.js',
-    publicPath: '/'
-  },
-  module: {
-    rules: [
-      rules.js(),
-      rules.css(),
-      rules.images(),
-    ]
-  },
-  plugins: [
-    plugins.extractText({ disable: true }),
-    new RelayCompilerWebpackPlugin({
-      schema: path.resolve(__dirname, 'wwwroot/schema.json'),
-      src: path.resolve(__dirname, './ClientApp'),
-    })
-  ]
+    devtool: "inline-source-map",
+    entry: './ClientApp/app.js',
+    output: {
+        path: __dirname + "/wwwroot/dist",
+        filename: "bundle.js",
+    },
+    module: {
+        rules: [
+            {
+                test: /\.html$/,
+                use: ["file?name=[name].[ext]"],
+            },
+            {
+                type: "javascript/auto",
+                test: /\.mjs$/,
+                use: [],
+                include: /node_modules/,
+            },
+            {
+                test: /\.(js|jsx)$/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: [
+                                ["@babel/preset-env", { modules: false }],
+                                "@babel/preset-react",
+                            ],
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.svg$/,
+                use: [{ loader: "svg-inline-loader" }],
+            },
+        ],
+    },
+    resolve: {
+        extensions: [".js", ".json", ".jsx", ".css", ".mjs"],
+    }
 }

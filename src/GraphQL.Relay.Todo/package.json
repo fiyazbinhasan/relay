@@ -5,25 +5,32 @@
   "scripts": {
     "compile": "relay-compiler --src ./ClientApp --schema ./wwwroot/schema.json"
   },
-  "devDependencies": {
-    "@dhau/relay-compiler-webpack-plugin": "^0.5.3",
-    "aspnet-webpack": "^2.0.1",
-    "relay-compiler": "^1.4.1",
-    "webpack": "^3.8.1",
-    "webpack-atoms": "^4.1.2"
-  },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-relay": "^1.4.1",
-    "babel-preset-jason": "^3.1.1",
-    "babel-preset-react": "^6.11.1",
-    "classnames": "2.2.5",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-relay": "^1.4.0",
-    "relay-compiler": "^1.4.1",
-    "todomvc-app-css": "^2.1.0",
-    "todomvc-common": "^1.0.3"
+    "babel-plugin-relay": "^11.0.2",
+    "babel-preset-jason": "^6.3.0",
+    "classnames": "^2.3.1",
+    "graphql": "^15.5.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-relay": "^11.0.2",
+    "relay-compiler": "^11.0.2",
+    "todomvc-app-css": "^2.4.0",
+    "todomvc-common": "^1.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.2.4",
+    "html-webpack-plugin": "^5.3.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.36.1",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }

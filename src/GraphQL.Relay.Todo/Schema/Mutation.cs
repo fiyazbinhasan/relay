@@ -1,26 +1,49 @@
-using System.Linq;
 using GraphQL.Relay.Types;
 using GraphQL.Types;
 using GraphQL.Types.Relay;
 using GraphQL.Types.Relay.DataObjects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GraphQL.Relay.Todo.Schema
 {
-
-    public class TodoMutation : MutationGraphType
+    public class TodoMutation : ObjectGraphType
     {
         public TodoMutation() : base()
         {
-            Mutation<AddTodoInput, AddTodoPayload>("addTodo");
-            Mutation<ChangeTodoStatusInput, ChangeTodoStatusPayload>("changeTodoStatus");
-            Mutation<MarkAllTodosInput, MarkAllTodosPayload>("markAllTodos");
-            Mutation<RemoveCompletedTodosInput, RemoveCompletedTodosPayload>("removeCompletedTodos");
-            Mutation<RemoveTodoInput, RemoveTodoPayload>("removeTodo");
-            Mutation<RenameTodoInput, RenameTodoPayload>("renameTodo");
+            //Mutation<AddTodoInput, AddTodoPayload>("addTodo");
+            //Mutation<ChangeTodoStatusInput, ChangeTodoStatusPayload>("changeTodoStatus");
+            //Mutation<MarkAllTodosInput, MarkAllTodosPayload>("markAllTodos");
+            //Mutation<RemoveCompletedTodosInput, RemoveCompletedTodosPayload>("removeCompletedTodos");
+            //Mutation<RemoveTodoInput, RemoveTodoPayload>("removeTodo");
+            //Mutation<RenameTodoInput, RenameTodoPayload>("renameTodo");
+
+            Field(
+                name: "addTodo",
+                type: typeof(TodoGraphType),
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "text" }
+                ),
+                resolve: c =>
+                {
+                    var text = c.GetArgument<string>("text");
+                    var todo = Database.AddTodo(text);
+
+                    return new
+                    {
+                        TodoEdge = new Edge<Todo>
+                        {
+                            Node = todo,
+                            Cursor = ConnectionUtils.CursorForObjectInConnection(Database.GetTodos(), todo)
+                        },
+                        Viewer = Database.GetViewer(),
+                    };
+                }
+            );
         }
     }
 
-    public class AddTodoInput : MutationInputGraphType
+    public class AddTodoInput : InputObjectGraphType
     {
         public AddTodoInput()
         {
@@ -32,7 +55,6 @@ namespace GraphQL.Relay.Todo.Schema
 
     public class AddTodoPayload : MutationPayloadGraphType
     {
-
         public AddTodoPayload()
         {
             Name = "AddTodoPayload";
@@ -59,8 +81,7 @@ namespace GraphQL.Relay.Todo.Schema
         }
     }
 
-
-    public class ChangeTodoStatusInput : MutationInputGraphType
+    public class ChangeTodoStatusInput : InputObjectGraphType
     {
         public ChangeTodoStatusInput()
         {
@@ -73,7 +94,6 @@ namespace GraphQL.Relay.Todo.Schema
 
     public class ChangeTodoStatusPayload : MutationPayloadGraphType
     {
-
         public ChangeTodoStatusPayload()
         {
             Name = "ChangeTodoStatusPayload";
@@ -98,8 +118,7 @@ namespace GraphQL.Relay.Todo.Schema
         }
     }
 
-
-    public class MarkAllTodosInput : MutationInputGraphType
+    public class MarkAllTodosInput : InputObjectGraphType
     {
         public MarkAllTodosInput()
         {
@@ -111,7 +130,6 @@ namespace GraphQL.Relay.Todo.Schema
 
     public class MarkAllTodosPayload : MutationPayloadGraphType
     {
-
         public MarkAllTodosPayload()
         {
             Name = "MarkAllTodosPayload";
@@ -135,18 +153,17 @@ namespace GraphQL.Relay.Todo.Schema
         }
     }
 
-
-    public class RemoveCompletedTodosInput : MutationInputGraphType
+    public class RemoveCompletedTodosInput : InputObjectGraphType
     {
         public RemoveCompletedTodosInput()
         {
             Name = "RemoveCompletedTodosInput";
+            Field<IntGraphType>("placeholder");
         }
     }
 
     public class RemoveCompletedTodosPayload : MutationPayloadGraphType
     {
-
         public RemoveCompletedTodosPayload()
         {
             Name = "RemoveCompletedTodosPayload";
@@ -170,8 +187,7 @@ namespace GraphQL.Relay.Todo.Schema
         }
     }
 
-
-    public class RemoveTodoInput : MutationInputGraphType
+    public class RemoveTodoInput : InputObjectGraphType
     {
         public RemoveTodoInput()
         {
@@ -183,7 +199,6 @@ namespace GraphQL.Relay.Todo.Schema
 
     public class RemoveTodoPayload : MutationPayloadGraphType
     {
-
         public RemoveTodoPayload()
         {
             Name = "RemoveTodoPayload";
@@ -209,8 +224,7 @@ namespace GraphQL.Relay.Todo.Schema
         }
     }
 
-
-    public class RenameTodoInput : MutationInputGraphType
+    public class RenameTodoInput : InputObjectGraphType
     {
         public RenameTodoInput()
         {
@@ -223,7 +237,6 @@ namespace GraphQL.Relay.Todo.Schema
 
     public class RenameTodoPayload : MutationPayloadGraphType
     {
-
         public RenameTodoPayload()
         {
             Name = "RenameTodoPayload";

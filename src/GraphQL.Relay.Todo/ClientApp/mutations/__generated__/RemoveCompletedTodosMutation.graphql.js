@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 05d4aaca3140107c65dfd77d1d390c87
  */
 
 /* eslint-disable */
@@ -8,20 +7,25 @@
 'use strict';
 
 /*::
-import type {ConcreteBatch} from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
+export type RemoveCompletedTodosInput = {|
+  clientMutationId?: ?string
+|};
 export type RemoveCompletedTodosMutationVariables = {|
-  input: {
-    clientMutationId?: ?string;
-  };
+  input: RemoveCompletedTodosInput
 |};
 export type RemoveCompletedTodosMutationResponse = {|
   +removeCompletedTodos: ?{|
-    +deletedTodoIds: ?$ReadOnlyArray<?string>;
+    +deletedTodoIds: ?$ReadOnlyArray<?string>,
     +viewer: ?{|
-      +completedCount: ?number;
-      +totalCount: ?number;
-    |};
-  |};
+      +completedCount: ?number,
+      +totalCount: ?number,
+    |},
+  |}
+|};
+export type RemoveCompletedTodosMutation = {|
+  variables: RemoveCompletedTodosMutationVariables,
+  response: RemoveCompletedTodosMutationResponse,
 |};
 */
 
@@ -41,64 +45,68 @@ mutation RemoveCompletedTodosMutation(
 }
 */
 
-const batch /*: ConcreteBatch*/ = {
+const node/*: ConcreteRequest*/ = (function(){
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "input"
+  }
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "deletedTodoIds",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "completedCount",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
+  "storageKey": null
+};
+return {
   "fragment": {
-    "argumentDefinitions": [
-      {
-        "kind": "LocalArgument",
-        "name": "input",
-        "type": "RemoveCompletedTodosInput!",
-        "defaultValue": null
-      }
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "RemoveCompletedTodosMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "input",
-            "variableName": "input",
-            "type": "RemoveCompletedTodosInput!"
-          }
-        ],
+        "args": (v1/*: any*/),
         "concreteType": "RemoveCompletedTodosPayload",
+        "kind": "LinkedField",
         "name": "removeCompletedTodos",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "deletedTodoIds",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
             "alias": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
             "name": "viewer",
             "plural": false,
             "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "completedCount",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "totalCount",
-                "storageKey": null
-              }
+              (v3/*: any*/),
+              (v4/*: any*/)
             ],
             "storageKey": null
           }
@@ -106,73 +114,38 @@ const batch /*: ConcreteBatch*/ = {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
-  "id": null,
-  "kind": "Batch",
-  "metadata": {},
-  "name": "RemoveCompletedTodosMutation",
-  "query": {
-    "argumentDefinitions": [
-      {
-        "kind": "LocalArgument",
-        "name": "input",
-        "type": "RemoveCompletedTodosInput!",
-        "defaultValue": null
-      }
-    ],
-    "kind": "Root",
+  "kind": "Request",
+  "operation": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Operation",
     "name": "RemoveCompletedTodosMutation",
-    "operation": "mutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "input",
-            "variableName": "input",
-            "type": "RemoveCompletedTodosInput!"
-          }
-        ],
+        "args": (v1/*: any*/),
         "concreteType": "RemoveCompletedTodosPayload",
+        "kind": "LinkedField",
         "name": "removeCompletedTodos",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "deletedTodoIds",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
             "alias": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
             "name": "viewer",
             "plural": false,
             "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
                 "args": null,
-                "name": "completedCount",
-                "storageKey": null
-              },
-              {
                 "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "totalCount",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
                 "name": "id",
                 "storageKey": null
               }
@@ -184,7 +157,17 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation RemoveCompletedTodosMutation(\n  $input: RemoveCompletedTodosInput!\n) {\n  removeCompletedTodos(input: $input) {\n    deletedTodoIds\n    viewer {\n      completedCount\n      totalCount\n      id\n    }\n  }\n}\n"
+  "params": {
+    "cacheID": "4e579d172ceaf5d902f3da90438a1cfe",
+    "id": null,
+    "metadata": {},
+    "name": "RemoveCompletedTodosMutation",
+    "operationKind": "mutation",
+    "text": "mutation RemoveCompletedTodosMutation(\n  $input: RemoveCompletedTodosInput!\n) {\n  removeCompletedTodos(input: $input) {\n    deletedTodoIds\n    viewer {\n      completedCount\n      totalCount\n      id\n    }\n  }\n}\n"
+  }
 };
+})();
+// prettier-ignore
+(node/*: any*/).hash = '303799d791e6e233861ee011ff3bdbb8';
 
-module.exports = batch;
+module.exports = node;

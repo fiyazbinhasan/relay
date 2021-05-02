@@ -1,7 +1,6 @@
-using System;
+using GraphQL.SystemTextJson;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.SystemTextJson;
 
 namespace GraphQL.Relay.Todo
 {
@@ -16,7 +15,6 @@ namespace GraphQL.Relay.Todo
             executor = new DocumentExecuter();
             _schema = schema;
         }
-
 
         public async Task<string> Generate()
         {
@@ -37,64 +35,66 @@ namespace GraphQL.Relay.Todo
         private string introspectionQuery = @"
           query IntrospectionQuery {
             __schema {
-              queryType { name }
-              mutationType { name }
-              subscriptionType { name }
-              types {
-                ...FullType
-              }
-              directives {
-                name
-                description
-                locations
-                args {
-                  ...InputValue
+                queryType { name }
+                mutationType { name }
+                subscriptionType { name }
+                types {
+                  ...FullType
+                }
+                directives {
+                  name
+                  description
+                  args {
+                    ...InputValue
+                  }
+                  onOperation
+                  onFragment
+                  onField
                 }
               }
             }
-          }
-          fragment FullType on __Type {
-            kind
-            name
-            description
-            fields(includeDeprecated: true) {
+
+            fragment FullType on __Type {
+              kind
               name
               description
-              args {
+              fields(includeDeprecated: true) {
+                name
+                description
+                args {
+                  ...InputValue
+                }
+                type {
+                  ...TypeRef
+                }
+                isDeprecated
+                deprecationReason
+              }
+              inputFields {
                 ...InputValue
               }
-              type {
+              interfaces {
                 ...TypeRef
               }
-              isDeprecated
-              deprecationReason
+              enumValues(includeDeprecated: true) {
+                name
+                description
+                isDeprecated
+                deprecationReason
+              }
+              possibleTypes {
+                ...TypeRef
+              }
             }
-            inputFields {
-              ...InputValue
-            }
-            interfaces {
-              ...TypeRef
-            }
-            enumValues(includeDeprecated: true) {
+
+            fragment InputValue on __InputValue {
               name
               description
-              isDeprecated
-              deprecationReason
+              type { ...TypeRef }
+              defaultValue
             }
-            possibleTypes {
-              ...TypeRef
-            }
-          }
-          fragment InputValue on __InputValue {
-            name
-            description
-            type { ...TypeRef }
-            defaultValue
-          }
-          fragment TypeRef on __Type {
-            kind
-            name
-            ofType {
+
+            fragment TypeRef on __Type {
               kind
               name
               ofType {
@@ -106,23 +106,10 @@ namespace GraphQL.Relay.Todo
                   ofType {
                     kind
                     name
-                    ofType {
-                      kind
-                      name
-                      ofType {
-                        kind
-                        name
-                        ofType {
-                          kind
-                          name
-                        }
-                      }
-                    }
                   }
                 }
               }
             }
-          }
         ";
     }
 }

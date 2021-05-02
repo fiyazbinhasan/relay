@@ -1,6 +1,5 @@
 /**
  * @flow
- * @relayHash 0a8876b18d239f935cb5ad4f92bf4a8a
  */
 
 /* eslint-disable */
@@ -8,21 +7,26 @@
 'use strict';
 
 /*::
-import type {ConcreteBatch} from 'relay-runtime';
+import type { ConcreteRequest } from 'relay-runtime';
+export type RemoveTodoInput = {|
+  clientMutationId?: ?string,
+  id?: ?string,
+|};
 export type RemoveTodoMutationVariables = {|
-  input: {
-    clientMutationId?: ?string;
-    id?: ?string;
-  };
+  input: RemoveTodoInput
 |};
 export type RemoveTodoMutationResponse = {|
   +removeTodo: ?{|
-    +deletedTodoId: ?string;
+    +deletedTodoId: ?string,
     +viewer: ?{|
-      +completedCount: ?number;
-      +totalCount: ?number;
-    |};
-  |};
+      +completedCount: ?number,
+      +totalCount: ?number,
+    |},
+  |}
+|};
+export type RemoveTodoMutation = {|
+  variables: RemoveTodoMutationVariables,
+  response: RemoveTodoMutationResponse,
 |};
 */
 
@@ -42,64 +46,68 @@ mutation RemoveTodoMutation(
 }
 */
 
-const batch /*: ConcreteBatch*/ = {
+const node/*: ConcreteRequest*/ = (function(){
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "input"
+  }
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "deletedTodoId",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "completedCount",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
+  "storageKey": null
+};
+return {
   "fragment": {
-    "argumentDefinitions": [
-      {
-        "kind": "LocalArgument",
-        "name": "input",
-        "type": "RemoveTodoInput!",
-        "defaultValue": null
-      }
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "RemoveTodoMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "input",
-            "variableName": "input",
-            "type": "RemoveTodoInput!"
-          }
-        ],
+        "args": (v1/*: any*/),
         "concreteType": "RemoveTodoPayload",
+        "kind": "LinkedField",
         "name": "removeTodo",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "deletedTodoId",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
             "alias": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
             "name": "viewer",
             "plural": false,
             "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "completedCount",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "totalCount",
-                "storageKey": null
-              }
+              (v3/*: any*/),
+              (v4/*: any*/)
             ],
             "storageKey": null
           }
@@ -107,73 +115,38 @@ const batch /*: ConcreteBatch*/ = {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
-  "id": null,
-  "kind": "Batch",
-  "metadata": {},
-  "name": "RemoveTodoMutation",
-  "query": {
-    "argumentDefinitions": [
-      {
-        "kind": "LocalArgument",
-        "name": "input",
-        "type": "RemoveTodoInput!",
-        "defaultValue": null
-      }
-    ],
-    "kind": "Root",
+  "kind": "Request",
+  "operation": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Operation",
     "name": "RemoveTodoMutation",
-    "operation": "mutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "input",
-            "variableName": "input",
-            "type": "RemoveTodoInput!"
-          }
-        ],
+        "args": (v1/*: any*/),
         "concreteType": "RemoveTodoPayload",
+        "kind": "LinkedField",
         "name": "removeTodo",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
-            "kind": "ScalarField",
-            "alias": null,
-            "args": null,
-            "name": "deletedTodoId",
-            "storageKey": null
-          },
-          {
-            "kind": "LinkedField",
             "alias": null,
             "args": null,
             "concreteType": "User",
+            "kind": "LinkedField",
             "name": "viewer",
             "plural": false,
             "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
                 "args": null,
-                "name": "completedCount",
-                "storageKey": null
-              },
-              {
                 "kind": "ScalarField",
-                "alias": null,
-                "args": null,
-                "name": "totalCount",
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "args": null,
                 "name": "id",
                 "storageKey": null
               }
@@ -185,7 +158,17 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation RemoveTodoMutation(\n  $input: RemoveTodoInput!\n) {\n  removeTodo(input: $input) {\n    deletedTodoId\n    viewer {\n      completedCount\n      totalCount\n      id\n    }\n  }\n}\n"
+  "params": {
+    "cacheID": "0daba1c994a0eb6a7bff7c1474776547",
+    "id": null,
+    "metadata": {},
+    "name": "RemoveTodoMutation",
+    "operationKind": "mutation",
+    "text": "mutation RemoveTodoMutation(\n  $input: RemoveTodoInput!\n) {\n  removeTodo(input: $input) {\n    deletedTodoId\n    viewer {\n      completedCount\n      totalCount\n      id\n    }\n  }\n}\n"
+  }
 };
+})();
+// prettier-ignore
+(node/*: any*/).hash = '560d32d6f18b4072042cf217a41beb97';
 
-module.exports = batch;
+module.exports = node;

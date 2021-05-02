@@ -26,25 +26,25 @@ const mutation = graphql`
 `
 
 function sharedUpdater(store, user, deletedID) {
-  const userProxy = store.get(user.id)
-  const conn = ConnectionHandler.getConnection(userProxy, 'TodoList_todos')
-  ConnectionHandler.deleteNode(conn, deletedID)
+    const userProxy = store.get(user.id)
+    const conn = ConnectionHandler.getConnection(userProxy, 'TodoList_todos')
+    ConnectionHandler.deleteNode(conn, deletedID)
 }
 
 function commit(environment, todo, user) {
-  return commitMutation(environment, {
-    mutation,
-    variables: {
-      input: { id: todo.id },
-    },
-    updater: store => {
-      const payload = store.getRootField('removeTodo')
-      sharedUpdater(store, user, payload.getValue('deletedTodoId'))
-    },
-    optimisticUpdater: store => {
-      sharedUpdater(store, user, todo.id)
-    },
-  })
+    return commitMutation(environment, {
+        mutation,
+        variables: {
+            input: { id: todo.id },
+        },
+        updater: store => {
+            const payload = store.getRootField('removeTodo')
+            sharedUpdater(store, user, payload.getValue('deletedTodoId'))
+        },
+        optimisticUpdater: store => {
+            sharedUpdater(store, user, todo.id)
+        },
+    })
 }
 
 export default { commit }
